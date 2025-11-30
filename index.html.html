@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Екатерина — Твой учитель английского</title>
+  <style>
+    :root {
+      --bg: #eeefee;
+      --text: #353736;
+      --accent: #353736;
+      --card-bg: #b6c0b1;
+      --btn-bg: #747950;
+      --line: #747950;
+      --shadow: rgba(53, 55, 54, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--bg);
+      color: var(--accent);
+      padding: 2rem 1.5rem;
+      border-bottom: 1px solid rgba(53, 55, 54, 0.08);
+    }
+
+    .header-content {
+      max-width: 840px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .header-text {
+      text-align: left;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .name {
+  font-family: 'Caveat', cursive;
+  font-size: 1.55rem;
+  font-weight: 600;
+  opacity: 0.92;
+  letter-spacing: 1px;
+}
+
+    .title {
+  font-family: 'Caveat', cursive;
+  font-size: 1.55rem;
+  font-weight: 600;
+  opacity: 0.92;
+  letter-spacing: 1px;
+}
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px var(--shadow);
+    }
+
+    main {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 2.5rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
+      padding: 1.8rem;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid rgba(53, 55, 54, 0.1);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 32px;
+      height: 2px;
+      background: var(--line);
+      border-radius: 1px;
+    }
+
+    ul {
+      padding-left: 1.4rem;
+    }
+
+    li {
+      margin-bottom: 0.6rem;
+      list-style-type: none;
+      position: relative;
+    }
+
+    li::before {
+      content: '•';
+      color: var(--line);
+      font-weight: bold;
+      position: absolute;
+      left: -1.2rem;
+      top: 0;
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .price-card {
+      background: white;
+      padding: 1.5rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px var(--shadow);
+      border: 1px solid rgba(53, 55, 54, 0.12);
+    }
+
+    .price-card h3 {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0.4rem 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--btn-bg);
+      color: white;
+      padding: 0.6rem 1.3rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: 0.8rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background: #626644;
+      transform: translateY(-2px);
+    }
+
+    .socials {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+
+    .social-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.2s;
+      background: var(--btn-bg);
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .tg-icon, .vk-icon { fill: white; }
+    .tg { background: #0088cc; }
+    .vk { background: #0077ff; }
+  /* Модальное окно */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 95%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transform: translateY(-20px);
+  transition: transform 0.3s;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.modal-close:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.modal-form label {
+  display: block;
+  margin: 1rem 0 0.4rem;
+  font-weight: 500;
+}
+
+.modal-form input,
+.modal-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.modal-form button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.modal-contacts {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.modal-contacts a {
+  color: var(--btn-bg);
+  text-decoration: none;
+}
+
+.modal-contacts a:hover {
+  text-decoration: underline;
+}
+  <head>
+  <style>
+    /* ... все ваши текущие стили ... */
+
+    /* 👇 Ваш новый стиль для рукописного текста — вставьте сюда */
+    .handwritten {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 1.35;
+      opacity: 0.96;
+      margin: 0;
+      text-align: left;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 768px) {
+      .handwritten {
+        font-size: 1.4rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .handwritten {
+        font-size: 1.25rem;
+        line-height: 1.4;
+      }
+    }
+  </style>
+</head>
+  </style>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+ <header>
+  <div class="header-content">
+    <div class="header-text">
+      <p style="font-size: 1.35rem; font-weight: 500; line-height: 1.45; margin-bottom: 0.1rem;">
+        Екатерина Сергеевна
+      </p>
+	  <p style="font-size: 1.35rem; font-weight: 500; line-height: 1.45; margin-bottom: 0.1rem;">
+        Твой учитель английского
+      </p>
+	 
+      <p style="font-size: 1.05rem; opacity: 0.9; line-height: 1.6; margin: 0;">
+        Добро пожаловать на мой сайт! 
+      </p>
+	  <p style="font-size: 1.05rem; opacity: 0.9; line-height: 1.6; margin: 0;">
+        Здесь вы найдёте информацию о моих занятиях, а также рекомендации и ресурсы, которые помогут вам уверенно продвигаться в английском. Буду рада стать вашим проводником в мире новых возможностей и знаний!
+      </p>
+    </div>
+      <img src="https://i.postimg.cc/9469w0GF/avatar-jpg.png" alt="Екатерина" class="avatar">
+    </div>
+	<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+  </header>
+
+  <main>
+    <section id="education">
+      <h2>🎓 Образование и квалификация</h2>
+      <ul>
+        <li>Высшее педагогическое образование</li>
+        <li>Высшая квалификационная категория</li>
+        <li>Опыт преподавания — более 10 лет</li>
+      </ul>
+    </section>
+
+    <section id="programs">
+      <h2>📚 Программы обучения</h2>
+      <ul>
+        <li>Английский для школьников (2–11 класс)</li>
+        <li>Разговорный английский для взрослых</li>
+        <li>Индивидуальные программы «с нуля» и для продвинутых</li>
+      </ul>
+    </section>
+
+    <section id="pricing">
+      <h2>💰 Стоимость и формат занятий</h2>
+      <div class="price-grid">
+        <div class="price-card">
+          <h3>Пробное занятие</h3>
+          <div class="price">500 ₽</div>
+          <p>30 минут<br>онлайн или офлайн</p>
+          <a href="#contact" class="btn">Забронировать</a>
+        </div>
+        <div class="price-card">
+          <h3>Индивидуальное занятие</h3>
+          <div class="price">1 200 ₽</div>
+          <p>60 минут<br>онлайн или офлайн</p>
+          <a href="#contact" class="btn">Записаться</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>📬 Связаться</h2>
+      <p>📞 +7 (999) 999-99-99</p>
+      <div class="socials">
+        <a href="https://t.me/katli_on" class="social-btn tg" aria-label="Написать в Telegram">
+          <img src="https://i.postimg.cc/8fMgkKTJ/telegram-png.png" alt="" width="22" height="22">
+        </a>
+        <a href="https://vk.com/katli_on" class="social-btn vk" aria-label="Перейти во ВКонтакте">
+          <img src="https://i.postimg.cc/grZWKJ8H/vk-png.png" alt="" width="22" height="22">
+        </a>
+      </div>
+    </section>
+  </main>
+  <!-- Модальное окно -->
+<div id="modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-overlay" tabindex="-1" data-close></div>
+  <div class="modal-content" role="document">
+    <button class="modal-close" aria-label="Закрыть" data-close>&times;</button>
+    <h2 id="modal-title">📞 Записаться на занятие</h2>
+    <p>Напишите, пожалуйста, ваше имя и удобное время — я отвечу в течение часа.</p>
+
+    <form id="contact-form" class="modal-form">
+      <label for="name">Ваше имя *</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="phone">Телефон или Telegram *</label>
+      <input type="text" id="phone" name="phone" required>
+
+      <label for="message">Комментарий (класс, цель, удобное время)</label>
+      <textarea id="message" name="message" rows="3"></textarea>
+
+      <button type="submit" class="btn">Отправить заявку</button>
+    </form>
+
+    <div class="modal-contacts">
+      <p>Или свяжитесь напрямую:</p>
+      <p>📱 <a href="https://t.me/katli_on" target="_blank">Telegram</a><br>
+         🎵 <a href="https://vk.com/katli_on" target="_blank">ВКонтакте</a><br>
+         ☎️ +7 (999) 999-99-99</p>
+    </div>
+  </div>
+</div>
+<script>
+  // Открытие модального окна
+  document.querySelectorAll('.btn[href="#contact"]').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('modal').classList.add('active');
+      document.body.style.overflow = 'hidden'; // фикс скролла
+      document.getElementById('name').focus(); // фокус на первое поле
+      document.querySelector('#modal').setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  // Закрытие по кнопке, оверлею или Esc
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+    document.querySelector('#modal').setAttribute('aria-hidden', 'true');
+  }
+
+  document.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', closeModal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('modal').classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Обработка формы (просто alert — в продакшене → отправка на сервер/email)
+  document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    alert(`Спасибо, ${name}! Ваша заявка принята. Я свяжусь с вами в ближайшее время 💌`);
+    closeModal();
+    this.reset();
+  });
+</script>
+</body>
+</html>
